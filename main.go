@@ -1,30 +1,23 @@
 package main
 
-import "fmt"
-
-var i, j int = 1, 2
-
-const (
-	Big   = 1 << 100
-	Small = Big >> 99
+import (
+	"fmt"
 )
 
-func needInt(x int) int { return x*10 + 1 }
-func needFloat(x float64) float64 {
-	return x * 0.1
+func Sqrt(x float64) float64 {
+	z := x / 2
+	for i := 1; i <= 10; i++ {
+		prev := z
+		z -= (z*z - x) / (2 * z)
+		fmt.Println("count: ", i)
+		fmt.Println("z: ", z)
+		if (prev - z) == 0 {
+			break
+		}
+	}
+	return z
 }
+
 func main() {
-	fmt.Println(needInt(Small))
-	fmt.Println(needInt(Big))
-	fmt.Println(needFloat(Small))
-	fmt.Println(needFloat(Big))
-
-}
-
-func add(x int, y int) int {
-	return x + y
-}
-
-func swap(x, y, z string) (string, string, string) {
-	return y, x, z
+	fmt.Println("result", Sqrt(100))
 }
