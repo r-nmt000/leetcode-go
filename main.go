@@ -1,26 +1,20 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
+import "fmt"
 
-func main() {
-	fmt.Println(WordCount("test test test aaa aaa bbb"))
-
-}
-
-func WordCount(s string) map[string]int {
-	words := strings.Split(s, " ")
-	m := make(map[string]int)
-
-	for _, word := range words {
-		num, isExist := m[word]
-		if isExist {
-			m[word] = num + 1
-		} else {
-			m[word] = 1
-		}
+func fibonacci() func() int {
+	step1 := 0
+	step2 := 1
+	return func() int {
+		ret := step1 + step2
+		step1 = step2
+		step2 = ret
+		return ret
 	}
-	return m
+}
+func main() {
+	f := fibonacci()
+	for i := 0; i < 10; i++ {
+		fmt.Println(f())
+	}
 }
