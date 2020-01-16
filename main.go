@@ -1,12 +1,30 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
+
+type Vertex struct {
+	Lat, Long float64
+}
 
 func main() {
-	fmt.Println("counting")
+	fmt.Println(WordCount("test test test aaa aaa bbb"))
 
-	for i := 0; i < 10; i++ {
-		defer fmt.Println(i)
+}
+
+func WordCount(s string) map[string]int {
+	words := strings.Split(s, " ")
+	m := make(map[string]int)
+
+	for _, word := range words {
+		num, isExist := m[word]
+		if isExist {
+			m[word] = num + 1
+		} else {
+			m[word] = 1
+		}
 	}
-	fmt.Println("done")
+	return m
 }
