@@ -5,10 +5,6 @@ import (
 	"strings"
 )
 
-type Vertex struct {
-	Lat, Long float64
-}
-
 func main() {
 	fmt.Println(WordCount("test test test aaa aaa bbb"))
 
