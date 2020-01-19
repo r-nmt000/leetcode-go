@@ -5,21 +5,39 @@ import (
     "math"
 )
 
+type Abser interface {
+    Abs() float64
+    Test() float64
+}
+
 type Vertex struct {
     X, Y float64
 }
 
-func (v Vertex ) Abs() float64 {
+func (v *Vertex) Abs() float64 {
     return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
 
-func (v *Vertex) Scale(f float64) {
-    v.X = v.X * f
-    v.Y = v.Y * f
+type MyFloat float64
+
+func (f MyFloat) Abs() float64 {
+    if f < 0 {
+        return float64(-f)
+    }
+    return float64(f)
+}
+
+func (f MyFloat) Test() float64 {
+    return 0
 }
 
 func main() {
+    var a Abser
+    f := MyFloat(-math.Sqrt2)
     v := Vertex{3, 4}
-    v.Scale(1)
-    fmt.Println(v.Abs())
+
+    a = f
+    a = &v
+
+    a = v
 }
