@@ -1,17 +1,20 @@
 package main
 
-import "golang.org/x/tour/pic"
+import (
+    "fmt"
+    "math"
+)
 
-func Pic(dx, dy int) [][]uint8 {
-    image := make([][]uint8, dy)
-    for i := range image {
-        image[i] = make([]uint8, dx)
-        for j := range image[i] {
-            image[i][j] = uint8(i*j)
-        }
+type MyFloat float64
+
+func (f MyFloat) Abs() float64 {
+    if f < 0 {
+        return float64(-f)
     }
-    return image
+    return float64(f)
 }
+
 func main() {
-    pic.Show(Pic)
+    f := MyFloat(-math.Sqrt2)
+    fmt.Println(f.Abs())
 }
