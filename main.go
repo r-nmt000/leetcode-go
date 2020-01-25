@@ -1,21 +1,19 @@
 package main
 
 import (
-	"fmt"
-	"io"
-	"strings"
+    "fmt"
+    "time"
 )
 
-func main() {
-	r := strings.NewReader("Hello, Reader!")
+func say(s string) {
+    for i := 0; i < 5; i++ {
+        time.Sleep(100 * time.Millisecond)
+        fmt.Println(s)
+    }
+}
 
-	b := make([]byte, 8)
-	for {
-		n, err := r.Read(b)
-		fmt.Printf("n = %v, err = %v, b = %v\n", n, err, b)
-		fmt.Printf("b[:n] = %q", b[:n])
-		if err == io.EOF {
-			break
-		}
-	}
+
+func main() {
+    go say("world")
+    say("hello")
 }
