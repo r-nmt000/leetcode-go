@@ -1,18 +1,31 @@
 package main
 
 import (
-	"golang.org/x/tour/reader"
+    "fmt"
 )
 
-type MyReader struct{}
+func fibonacci(c, quit chan int) {
+    x, y := 0, 1
+    for {
+        select {
+        case c <- x:
+            x, y = y, x+y
+        case <- quit:
+            fmt.Println("quit")
+            return
+        }
 
-func (r MyReader) Read(rb []byte) (int, error) {
-	for i := 0; i < len(rb); i++ {
-		rb[i] = 'A'
-	}
-	return len(rb), nil
+    }
 }
 
 func main() {
-	reader.Validate(MyReader{})
+    c := make(chan int)
+    quit := make(chan int)
+    go func() {
+        for i := 0; i < 10; i++ {
+            fmt.Println(<-c)
+        }
+        quit <- 0
+    }()
+    fibonacci(c, quit)
 }
