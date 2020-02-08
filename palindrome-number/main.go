@@ -12,7 +12,7 @@ func isPalindrome(x int) bool {
         return false
     }
     array := []int{}
-    for ; x > 10; x /= 10 {
+    for ; x >= 10; x /= 10 {
         array = append(array, x % 10)
         fmt.Println(array)
         fmt.Println(x)
